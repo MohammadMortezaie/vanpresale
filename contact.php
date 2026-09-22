@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit('Method not allowed.');
 }
 
-loadEnvironment(dirname(__DIR__) . '/.env');
+loadEnvironment(__DIR__ . '/.env');
 
 $token = (string) ($_POST['csrf_token'] ?? '');
 if (empty($_SESSION['csrf_token']) || !hash_equals($_SESSION['csrf_token'], $token)) redirectWithStatus('invalid');
