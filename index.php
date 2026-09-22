@@ -11,12 +11,6 @@ if (empty($_SESSION['csrf_token'])) {
     $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
 }
 
-$html = file_get_contents(__DIR__ . '/index.html');
-if ($html === false) {
-    http_response_code(500);
-    exit('Unable to load the page.');
-}
-
 $status = isset($_GET['status']) ? (string) $_GET['status'] : '';
 $messages = [
     'sent' => '<p class="form-status success" role="status">Thank you. Your message has been sent.</p>',
@@ -25,14 +19,170 @@ $messages = [
     'limit' => '<p class="form-status error" role="alert">Please wait a moment before sending another message.</p>',
 ];
 
-$html = str_replace(
-    ['{{CSRF_TOKEN}}', '{{FORM_STATUS}}'],
-    [htmlspecialchars($_SESSION['csrf_token'], ENT_QUOTES, 'UTF-8'), $messages[$status] ?? ''],
-    $html
-);
+$formStatus = $messages[$status] ?? '';
+$csrfToken = htmlspecialchars((string) $_SESSION['csrf_token'], ENT_QUOTES, 'UTF-8');
 
 header('Content-Type: text/html; charset=UTF-8');
 header('X-Content-Type-Options: nosniff');
 header('Referrer-Policy: strict-origin-when-cross-origin');
 header('Permissions-Policy: camera=(), microphone=(), geolocation=()');
-echo $html;
+?>
+<!doctype html>
+<html lang="en-CA">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Vancouver Pre Sale Realtor Partnership | VanPresale</title>
+  <meta name="description" content="VanPresale is seeking an experienced Vancouver pre sale realtor to become the local expert behind a focused real estate search platform, powered by Webpulse AI Inc.">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="theme-color" content="#07111f">
+  <link rel="canonical" href="https://vanpresale.com/">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="en_CA">
+  <meta property="og:title" content="The Vancouver Pre Sale opportunity, built around one agent.">
+  <meta property="og:description" content="Webpulse AI Inc. is looking for a presale-focused Vancouver realtor to become the local expert behind VanPresale.com.">
+  <meta property="og:url" content="https://vanpresale.com/">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Manrope:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "VanPresale",
+    "url": "https://vanpresale.com/",
+    "description": "A Vancouver pre sale real estate platform seeking an experienced local realtor partner.",
+    "publisher": {"@type":"Organization","name":"Webpulse AI Inc.","url":"https://webpulse.ca/"},
+    "inLanguage": "en-CA"
+  }
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header" data-header>
+    <a class="brand" href="#top" aria-label="VanPresale home">
+      <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+      <span>VanPresale</span>
+    </a>
+    <nav aria-label="Primary navigation">
+      <a href="#opportunity">The opportunity</a>
+      <a href="#fit">Who we need</a>
+    </nav>
+    <a class="button button-small magnetic" href="#contact">Start a conversation <span aria-hidden="true">↓</span></a>
+  </header>
+
+  <main id="main">
+    <section class="hero" id="top">
+      <div class="hero-media" aria-hidden="true">
+        <img src="/assets/vancouver-waterfront.jpg" alt="" fetchpriority="high">
+      </div>
+      <div class="hero-shade" aria-hidden="true"></div>
+      <div class="hero-content">
+        <p class="eyebrow reveal">A Webpulse AI Inc. partnership</p>
+        <h1 class="reveal">The Vancouver <em>pre sale</em> opportunity, built around one agent.</h1>
+        <p class="hero-copy reveal">We’re looking for an experienced Vancouver realtor to become the trusted local expert behind VanPresale.com—and turn focused search visibility into qualified buyer conversations.</p>
+        <div class="hero-actions reveal">
+          <a class="button button-primary magnetic" href="#contact">I’m interested <span aria-hidden="true">↓</span></a>
+          <a class="text-link" href="#opportunity">See how it works <span aria-hidden="true">↓</span></a>
+        </div>
+      </div>
+      <div class="hero-meta reveal" aria-label="Partnership highlights">
+        <span>One featured realtor</span><span>Vancouver focus</span><span>Long-term organic growth</span>
+      </div>
+    </section>
+
+    <section class="opportunity section" id="opportunity">
+      <div class="section-kicker reveal"><span>01</span> The opportunity</div>
+      <div class="section-intro">
+        <h2 class="reveal">A focused domain.<br>A clear search intent.<br><em>Your expertise.</em></h2>
+        <div class="intro-copy reveal">
+          <p>People searching for “Vancouver pre sale” are not browsing casually. They’re looking for projects, timelines, incentives, neighbourhood context, and a professional who can help them act.</p>
+          <p>Webpulse AI Inc. is building VanPresale.com as a focused, useful destination for that audience. We want one qualified realtor to be the human authority at its centre.</p>
+        </div>
+      </div>
+      <div class="proof-grid">
+        <article class="proof-card reveal">
+          <span class="card-number">01</span>
+          <h3>Your profile becomes the trust layer.</h3>
+          <p>Your professional photo, biography, market experience, and contact details give visitors a real expert to connect with.</p>
+        </article>
+        <article class="proof-card proof-card-dark reveal">
+          <span class="card-number">02</span>
+          <h3>We build the search foundation.</h3>
+          <p>Webpulse handles the technical structure, local content strategy, performance, and ongoing organic-search improvements.</p>
+        </article>
+        <article class="proof-card reveal">
+          <span class="card-number">03</span>
+          <h3>Relevant visitors become conversations.</h3>
+          <p>The experience is designed around useful information and clear contact paths—not generic traffic or empty ranking promises.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="fit section" id="fit">
+      <div class="fit-panel">
+        <div>
+          <div class="section-kicker section-kicker-light reveal"><span>02</span> The right fit</div>
+          <h2 class="reveal">We’re looking for a realtor who knows presales <em>from the inside.</em></h2>
+        </div>
+        <ul class="fit-list">
+          <li class="reveal"><span>01</span><p>Licensed and actively serving Greater Vancouver</p></li>
+          <li class="reveal"><span>02</span><p>Experienced with developer launches, assignments, and completion timelines</p></li>
+          <li class="reveal"><span>03</span><p>Comfortable sharing practical, buyer-first market insight</p></li>
+          <li class="reveal"><span>04</span><p>Ready to build a credible long-term digital presence</p></li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="seo-section section">
+      <div class="section-kicker reveal"><span>03</span> The search strategy</div>
+      <div class="seo-layout">
+        <h2 class="reveal">Built to earn relevance for <em>Vancouver pre sale.</em></h2>
+        <div class="seo-copy reveal">
+          <p>The goal is ambitious and straightforward: build a genuinely valuable local resource with the strongest possible opportunity to reach page one for high-intent Vancouver presale searches.</p>
+          <p>No credible SEO partner can guarantee a ranking. What we can promise is disciplined technical work, useful local content, fast performance, and consistent improvement.</p>
+        </div>
+      </div>
+      <div class="process" aria-label="SEO growth process">
+        <div class="process-line" aria-hidden="true"><span></span></div>
+        <div class="process-step reveal"><b>01</b><h3>Authority</h3><p>A real Vancouver presale specialist with proof of experience.</p></div>
+        <div class="process-step reveal"><b>02</b><h3>Usefulness</h3><p>Clear answers to the questions serious buyers actually ask.</p></div>
+        <div class="process-step reveal"><b>03</b><h3>Visibility</h3><p>A technically sound site that compounds organic reach over time.</p></div>
+      </div>
+    </section>
+
+    <section class="cta-section" id="contact">
+      <div class="cta-inner reveal">
+        <p class="eyebrow">Exclusive founding partnership</p>
+        <h2>Could your name belong here?</h2>
+        <p>Tell us about your Vancouver presale experience. We’ll share the partnership model, editorial plan, and next steps.</p>
+        <p class="direct-email">Prefer email? Write to <a href="mailto:info@webpulse.ca">info@webpulse.ca</a></p>
+        <?= $formStatus ?>
+        <form class="contact-form" action="/contact.php" method="post">
+          <input type="hidden" name="csrf_token" value="<?= $csrfToken ?>">
+          <div class="form-trap" aria-hidden="true">
+            <label for="company_website">Company website</label>
+            <input id="company_website" name="company_website" type="text" tabindex="-1" autocomplete="off">
+          </div>
+          <label><span>Name</span><input name="name" type="text" autocomplete="name" maxlength="100" required></label>
+          <label><span>Email</span><input name="email" type="email" autocomplete="email" maxlength="254" required></label>
+          <label><span>Phone <small>Optional</small></span><input name="phone" type="tel" autocomplete="tel" maxlength="40"></label>
+          <label class="form-message"><span>Tell us about your presale experience</span><textarea name="message" rows="5" maxlength="3000" required></textarea></label>
+          <button class="button button-light magnetic" type="submit">Send inquiry <span aria-hidden="true">↗</span></button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <a class="brand brand-footer" href="#top"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span><span>VanPresale</span></a>
+    <p>A Vancouver real estate search project by <a href="https://webpulse.ca/" rel="noopener">Webpulse AI Inc.</a></p>
+    <p>© 2026 Webpulse AI Inc.</p>
+  </footer>
+  <script src="/script.js" defer></script>
+</body>
+</html>
+
