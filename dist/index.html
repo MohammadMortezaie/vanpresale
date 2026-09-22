@@ -125,12 +125,24 @@
       </div>
     </section>
 
-    <section class="cta-section">
+    <section class="cta-section" id="contact">
       <div class="cta-inner reveal">
         <p class="eyebrow">Exclusive founding partnership</p>
         <h2>Could your name belong here?</h2>
         <p>Tell us about your Vancouver presale experience. We’ll share the partnership model, editorial plan, and next steps.</p>
-        <a class="button button-light magnetic" href="mailto:hello@webpulse.ca?subject=VanPresale%20Realtor%20Partnership&body=Hi%20Webpulse%2C%0A%0AI%E2%80%99m%20interested%20in%20the%20VanPresale%20realtor%20partnership.%0A">Contact Webpulse <span aria-hidden="true">↗</span></a>
+        {{FORM_STATUS}}
+        <form class="contact-form" action="/contact.php" method="post">
+          <input type="hidden" name="csrf_token" value="{{CSRF_TOKEN}}">
+          <div class="form-trap" aria-hidden="true">
+            <label for="company_website">Company website</label>
+            <input id="company_website" name="company_website" type="text" tabindex="-1" autocomplete="off">
+          </div>
+          <label><span>Name</span><input name="name" type="text" autocomplete="name" maxlength="100" required></label>
+          <label><span>Email</span><input name="email" type="email" autocomplete="email" maxlength="254" required></label>
+          <label><span>Phone <small>Optional</small></span><input name="phone" type="tel" autocomplete="tel" maxlength="40"></label>
+          <label class="form-message"><span>Tell us about your presale experience</span><textarea name="message" rows="5" maxlength="3000" required></textarea></label>
+          <button class="button button-light magnetic" type="submit">Send inquiry <span aria-hidden="true">↗</span></button>
+        </form>
       </div>
     </section>
   </main>
